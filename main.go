@@ -1,27 +1,15 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"fmt"
+	"tuxedo-email-service/services"
 
 	"github.com/joho/godotenv"
-	"github.com/labstack/echo/v4"
-	"github.com/rafia9005/email-service/internal/handler"
 )
 
 func main() {
-	e := echo.New()
-
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	e.GET("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Emails service is running!")
-	})
-
-	e.POST("/emails", handler.SendEmail)
-
-	e.Logger.Fatal(e.Start(":8080"))
+	fmt.Println("Load .env")
+	godotenv.Load()
+	fmt.Println("Starting Service")
+	services.Stream()
 }
